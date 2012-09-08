@@ -1,7 +1,15 @@
 "This must be first, because it changes other options as a side effect.
 set nocompatible
 set nocp
-filetype plugin on
+
+"Vundle-specific
+filetype off " requisite
+set rtp+=~/.vim/bundle/vundle/
+call vundle#rc()
+filetype plugin indent on " requisite
+"end of Vundle-specific
+
+"filetype plugin on
 set termencoding=utf-8
 set fileencodings=utf8,cp1251,utf8-bom
 set encoding=utf8
@@ -398,3 +406,16 @@ endfunction
 command RN call RoRreadyNERDTree() 
 "type tagname,,, to get <tagname></tagname>
 imap ,,, <esc>bdwa<<esc>pa><cr></<esc>pa><esc>kA
+
+"Vundle plugins to install
+
+" github
+
+Bundle 'tpope/vim-fugitive'
+
+" vim-scripts
+
+Bundle 'L9'
+Bundle 'FuzzyFinder'
+Bundle 'rails.vim'
+
