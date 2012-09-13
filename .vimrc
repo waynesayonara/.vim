@@ -1,52 +1,38 @@
 "This must be first, because it changes other options as a side effect.
+"Use Vim settings, rather then Vi settings (much better!).
 set nocompatible
 set nocp
+set fileencodings=ucs-bom,utf8,prc,cp1252
+set encoding=utf-8
+"set guifont=Courier_New:h12
+set guifontwide=NSimsun:h12
+set langmenu=en_US
+let $LANG = 'en_US'
 
 "Vundle-specific
 filetype off " requisite
-set rtp+=~/.vim/bundle/vundle/
-call vundle#rc()
+if has('win32') || has('win64')
+    set rtp+=$VIM/bundle/vundle/
+    call vundle#rc('$VIM/bundle/')
+else
+    set rtp+=~/.vim/bundle/vundle/
+    call vundle#rc()
+endif
 filetype plugin indent on " requisite
 "end of Vundle-specific
+
+source $VIMRUNTIME/delmenu.vim
+source $VIMRUNTIME/menu.vim
+set number
 
 "filetype plugin on
 set termencoding=utf-8
 set fileencodings=utf8,cp1251,utf8-bom
 set encoding=utf8
-"Use Vim settings, rather then Vi settings (much better!).
-
 
 colorscheme waynesayonara
 color waynesayonara
 
-autocmd FileType python set omnifunc=pythoncomplete#Complete
-autocmd FileType javascript set omnifunc=javascriptcomplete#CompleteJS
-autocmd FileType html set omnifunc=htmlcomplete#CompleteTags
-autocmd FileType css set omnifunc=csscomplete#CompleteCSS
-autocmd FileType xml set omnifunc=xmlcomplete#CompleteTags
-autocmd FileType php set omnifunc=phpcomplete#CompletePHP
-autocmd FileType c set omnifunc=ccomplete#Complete
-
-"configure tags - add additional tags here or comment out not-used ones
-set tags+=~/.vim/tags/cpp
-set tags+=~/.vim/tags/gl
-set tags+=~/.vim/tags/sdl
-set tags+=~/.vim/tags/qt4
-"build tags of your own project with Ctrl-F12
-map <C-F12> :!ctags -R --c++-kinds=+p --fields=+iaS --extra=+q .<CR>
-
-
-" OmniCppComplete
-let OmniCpp_NamespaceSearch = 1
-let OmniCpp_GlobalScopeSearch = 1
-let OmniCpp_ShowAccess = 1
-let OmniCpp_ShowPrototypeInAbbr = 1 " show function parameters
-let OmniCpp_MayCompleteDot = 1 " autocomplete after .
-let OmniCpp_MayCompleteArrow = 1 " autocomplete after ->
-let OmniCpp_MayCompleteScope = 1 " autocomplete after ::
-let OmniCpp_DefaultNamespaces = ["std", "_GLIBCXX_STD"]
-"automatically open and close the popup menu / preview window
-au CursorMovedI,InsertLeave * if pumvisible() == 0|silent! pclose|endif
 set completeopt=menuone,menu,longest,preview
 
 "allow backspacing over everything in insert mode
@@ -364,7 +350,6 @@ let g:Tex_DefaultTargetFormat='pdf'
 let g:Tex_CompileRule_pdf = 'xelatex -interaction=nonstopmode $*'
 :setlocal spell spelllang=en,ru
 set textwidth=150
-set runtimepath+=~/.vim/autoload/vam/
 " langmap
 set langmap=ёйцукенгшщзхъфывапролджэячсмитьбюЁЙЦУКЕHГШЩЗХЪФЫВАПРОЛДЖЭЯЧСМИТЬБЮ;`qwertyuiop[]asdfghjkl\\;'zxcvbnm\\,.~QWERTYUIOP{}ASDFGHJKL:\\"ZXCVBNM<>
 
@@ -396,6 +381,7 @@ set cul "highlight current line
 "au WinEnter * :call MyKeyMapHighlight()
 "
 "
+
 let g:NERDTreeWinPos = "right"
 
 function RoRreadyNERDTree()
@@ -412,10 +398,13 @@ imap ,,, <esc>bdwa<<esc>pa><cr></<esc>pa><esc>kA
 " github
 
 Bundle 'tpope/vim-fugitive'
+Bundle 'mileszs/ack.vim'
 
 " vim-scripts
 
 Bundle 'L9'
 Bundle 'FuzzyFinder'
 Bundle 'rails.vim'
+Bundle 'The-NERD-Commenter'
+Bundle 'The-NERD-tree'
 
