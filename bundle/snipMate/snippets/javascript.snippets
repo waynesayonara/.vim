@@ -72,3 +72,17 @@ snippet get
 # Get Element
 snippet gett
 	getElementBy${1:Id}('${2}')${3}
+snippet button
+	/*
+	 * По кнопке «${1:button name}»
+	 * ${2:$1} 
+	 */
+	var tempButton${3} = new PP.Ui.Button({
+		ParentNode: document.body,
+		Id: "tempButton${4:$3}",
+		ResourceKey: "tempButton${5:$3}",
+		Content: "$1",
+		Click: function btnOnClick() {
+			${6}
+		}
+	});
