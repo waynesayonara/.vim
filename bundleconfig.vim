@@ -2,13 +2,15 @@
 " Setting up Vundle - the vim plugin bundler
 let iCanHazVundle=1
 
-let vundle_readme=expand('$HOME/.vim/bundle/vundle/README.md')
+let vundle_readme=expand('/bundle/vundle/README.md')
 
 if !filereadable(vundle_readme )
     echo "Installing Vundle.."
     echo ""
-    silent !mkdir -p $HOME/.vim/bundle
-    silent !git clone https://github.com/gmarik/vundle $HOME/.vim/bundle/vundle
+    silent !mkdir .vim/bundle
+    silent cd .vim/bundle
+    silent !git clone https://github.com/gmarik/vundle 
+    "$H/.vim/bundle/vundle
     let iCanHazVundle=0
 endif
 "Vundle-specific

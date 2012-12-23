@@ -2,12 +2,7 @@
 set nocompatible
 set nocp
 
-" setting up Vundle
-"if has('win32') || has('win64')
-    "source $VIM/bundleconfig.vim
-"else
-    source $HOME/.vim/bundleconfig.vim
-"endif
+source $HOME/.vim/bundleconfig.vim
 
 if has('win32') || has('win64')
     source $VIMRUNTIME/delmenu.vim

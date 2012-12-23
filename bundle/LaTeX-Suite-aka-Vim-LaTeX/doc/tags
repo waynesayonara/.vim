@@ -351,10 +351,6 @@ forward-searching	latex-suite.txt	/*forward-searching*
 greek-letter-mappings	latex-suite.txt	/*greek-letter-mappings*
 headings	latexhelp.txt	/*headings*
 hyph-	latexhelp.txt	/*hyph-*
-im_1	imaps.txt	/*im_1*
-imaps-usage	imaps.txt	/*imaps-usage*
-imaps.txt	imaps.txt	/*imaps.txt*
-imaps.txt-toc	imaps.txt	/*imaps.txt-toc*
 insert-mode-environment-mappings	latex-suite.txt	/*insert-mode-environment-mappings*
 inserting-packages	latex-suite.txt	/*inserting-packages*
 inverse-searching	latex-suite.txt	/*inverse-searching*
