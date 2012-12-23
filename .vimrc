@@ -1,38 +1,57 @@
 "This must be first, because it changes other options as a side effect.
-"Use Vim settings, rather then Vi settings (much better!).
 set nocompatible
 set nocp
-set fileencodings=ucs-bom,utf8,prc,cp1252
-set encoding=utf-8
-"set guifont=Courier_New:h12
-set guifontwide=NSimsun:h12
-set langmenu=en_US
-let $LANG = 'en_US'
 
-"Vundle-specific
-filetype off " requisite
+" setting up Vundle
+"if has('win32') || has('win64')
+    "source $VIM/bundleconfig.vim
+"else
+    source $HOME/.vim/bundleconfig.vim
+"endif
+
 if has('win32') || has('win64')
-    set rtp+=$VIM/bundle/vundle/
-    call vundle#rc('$VIM/bundle/')
-else
-    set rtp+=~/.vim/bundle/vundle/
-    call vundle#rc()
+    source $VIMRUNTIME/delmenu.vim
+    source $VIMRUNTIME/menu.vim
 endif
-filetype plugin indent on " requisite
-"end of Vundle-specific
 
-source $VIMRUNTIME/delmenu.vim
-source $VIMRUNTIME/menu.vim
-set number
-
-"filetype plugin on
 set termencoding=utf-8
 set fileencodings=utf8,cp1251,utf8-bom
 set encoding=utf8
 
+" xelatex
+let g:Tex_CompileRule_pdf = 'xelatex -interaction=nonstopmode $*'
+
 colorscheme waynesayonara
 color waynesayonara
 
+autocmd FileType python set omnifunc=pythoncomplete#Complete
+autocmd FileType javascript set omnifunc=javascriptcomplete#CompleteJS
+autocmd FileType html set omnifunc=htmlcomplete#CompleteTags
+autocmd FileType css set omnifunc=csscomplete#CompleteCSS
+autocmd FileType xml set omnifunc=xmlcomplete#CompleteTags
+autocmd FileType php set omnifunc=phpcomplete#CompletePHP
+autocmd FileType c set omnifunc=ccomplete#Complete
+
+"configure tags - add additional tags here or comment out not-used ones
+" set tags+=~/.vim/tags/cpp
+" set tags+=~/.vim/tags/gl
+" set tags+=~/.vim/tags/sdl
+" set tags+=~/.vim/tags/qt4
+" "build tags of your own project with Ctrl-F12
+" map <C-F12> :!ctags -R --c++-kinds=+p --fields=+iaS --extra=+q .<CR>
+
+
+" OmniCppComplete
+let OmniCpp_NamespaceSearch = 1
+let OmniCpp_GlobalScopeSearch = 1
+let OmniCpp_ShowAccess = 1
+let OmniCpp_ShowPrototypeInAbbr = 1 " show function parameters
+let OmniCpp_MayCompleteDot = 1 " autocomplete after .
+let OmniCpp_MayCompleteArrow = 1 " autocomplete after ->
+let OmniCpp_MayCompleteScope = 1 " autocomplete after ::
+let OmniCpp_DefaultNamespaces = ["std", "_GLIBCXX_STD"]
+"automatically open and close the popup menu / preview window
+au CursorMovedI,InsertLeave * if pumvisible() == 0|silent! pclose|endif
 set completeopt=menuone,menu,longest,preview
 
 "allow backspacing over everything in insert mode
@@ -206,6 +225,8 @@ set shiftwidth=4
 set softtabstop=4
 set expandtab
 set autoindent
+set smartindent
+set tabstop=4
 
 "folding settings
 set foldmethod=indent   "fold based on indent
@@ -236,6 +257,7 @@ syntax on
 "some stuff to get the mouse going in term
 set mouse=a
 set ttymouse=xterm2
+set pastetoggle=<F4>
 
 "hide buffers when not displayed
 set hidden
@@ -351,23 +373,23 @@ let g:Tex_CompileRule_pdf = 'xelatex -interaction=nonstopmode $*'
 :setlocal spell spelllang=en,ru
 set textwidth=150
 " langmap
-set langmap=С‘Р№С†СѓРєРµРЅРіС€С‰Р·С…СЉС„С‹РІР°РїСЂРѕР»РґР¶СЌСЏС‡СЃРјРёС‚СЊР±СЋРЃР™Р¦РЈРљР•HР“РЁР©Р—РҐРЄР¤Р«Р’РђРџР РћР›Р”Р–Р­РЇР§РЎРњРРўР¬Р‘Р®;`qwertyuiop[]asdfghjkl\\;'zxcvbnm\\,.~QWERTYUIOP{}ASDFGHJKL:\\"ZXCVBNM<>
+set langmap=ёйцукенгшщзхъфывапролджэячсмитьбюЁЙЦУКЕHГШЩЗХЪФЫВАПРОЛДЖЭЯЧСМИТЬБЮ;`qwertyuiop[]asdfghjkl\\;'zxcvbnm\\,.~QWERTYUIOP{}ASDFGHJKL:\\"ZXCVBNM<>
 
 set cul "highlight current line
 "
 "
-"set keymap=russian-jcukenwin    " РЅР°СЃС‚СЂР°РёРІР°РµРј РїРµСЂРµРєР»СЋС‡РµРЅРёРµ СЂР°СЃРєР»Р°РґРѕРє РєР»Р°РІРёР°С‚СѓСЂС‹ РїРѕ C-^
-"set iminsert=0                  " СЂР°СЃРєР»Р°РґРєР° РїРѕ СѓРјРѕР»С‡Р°РЅРёСЋ РґР»СЏ РІРІРѕРґР° - Р°РЅРіР»РёР№СЃРєР°СЏ
-"set imsearch=0                  " СЂР°СЃРєР»Р°РґРєР° РїРѕ СѓРјРѕР»С‡Р°РЅРёСЋ РґР»СЏ РїРѕРёСЃРєР° - Р°РЅРіР»РёР№СЃРєР°СЏ
+"set keymap=russian-jcukenwin    " настраиваем переключение раскладок клавиатуры по C-^
+"set iminsert=0                  " раскладка по умолчанию для ввода - английская
+"set imsearch=0                  " раскладка по умолчанию для поиска - английская
 
-"" РїРµСЂРµРєР»СЋС‡РµРЅРёРµ РЅР° СЂСѓСЃСЃРєСѓСЋ/Р°РЅРіР»РёР№СЃРєСѓСЋ СЂР°СЃРєР»Р°РґРєСѓ РїРѕ ^f (Ctrl + F)
+"" переключение на русскую/английскую раскладку по ^f (Ctrl + F)
 "cmap <silent> <S-Left> <C-^>
 "imap <silent> <S-Left> <C-^>X<Esc>:call MyKeyMapHighlight()<CR>a<C-H>
 "nmap <silent> <S-Left> a<C-^><Esc>:call MyKeyMapHighlight()<CR>
 "vmap <silent> <S-Left> <Esc>a<C-^><Esc>:call MyKeyMapHighlight()<CR>gv
 
-"" РџРµСЂРµРєР»СЋС‡РµРЅРёРµ СЂР°СЃРєР»Р°РґРѕРє Рё РёРЅРґРёРєР°С†РёСЏ РІС‹Р±СЂР°РЅРЅРѕР№ РІ РґР°РЅРЅС‹Р№ РјРѕРјРµРЅС‚ СЂР°СЃРєР»Р°РґРєРё -->
-"" РџСЂРё Р°РЅРіР»РёР№СЃРєРѕР№ СЂР°СЃРєР»Р°РґРєРµ СЃС‚Р°С‚СѓСЃРЅР°СЏ СЃС‚СЂРѕРєР° С‚РµРєСѓС‰РµРіРѕ РѕРєРЅР° Р±СѓРґРµС‚ СЃРёРЅРµРіРѕ С†РІРµС‚Р°, Р° РїСЂРё СЂСѓСЃСЃРєРѕР№ - РєСЂР°СЃРЅРѕРіРѕ
+"" Переключение раскладок и индикация выбранной в данный момент раскладки -->
+"" При английской раскладке статусная строка текущего окна будет синего цвета, а при русской - красного
 "function MyKeyMapHighlight()
     "if &iminsert == 0
         "hi StatusLine ctermfg=White guifg=White
@@ -375,13 +397,12 @@ set cul "highlight current line
         "hi StatusLine ctermfg=Yellow guifg=Yellow
     "endif
 "endfunction
-"" Р’С‹Р·С‹РІР°РµРј С„СѓРЅРєС†РёСЋ, С‡С‚РѕР±С‹ РѕРЅР° СѓСЃС‚Р°РЅРѕРІРёР»Р° С†РІРµС‚Р° РїСЂРё Р·Р°РїСѓСЃРєРµ Vim'a
+"" Вызываем функцию, чтобы она установила цвета при запуске Vim'a
 "call MyKeyMapHighlight()
-"" РџСЂРё РёР·РјРµРЅРµРЅРёРё Р°РєС‚РёРІРЅРѕРіРѕ РѕРєРЅР° Р±СѓРґРµС‚ РІС‹РїРѕР»РЅСЏС‚СЊСЃСЏ РѕР±РЅРѕРІР»РµРЅРёРµ РёРЅРґРёРєР°С†РёРё С‚РµРєСѓС‰РµР№ СЂР°СЃРєР»Р°РґРєРё
+"" При изменении активного окна будет выполняться обновление индикации текущей раскладки
 "au WinEnter * :call MyKeyMapHighlight()
 "
 "
-
 let g:NERDTreeWinPos = "right"
 
 function RoRreadyNERDTree()
@@ -393,18 +414,88 @@ command RN call RoRreadyNERDTree()
 "type tagname,,, to get <tagname></tagname>
 imap ,,, <esc>bdwa<<esc>pa><cr></<esc>pa><esc>kA
 
-"Vundle plugins to install
+function ConvertSpanishDiac1251TO1252()
+    %s/с/n/g
+    %s/б/a/g
+    %s/н/i/g
+    %s/у/o/g
+    %s/ъ/u/g
+    %s/й/e/g
+    %s/С/N/g
+    %s/Б/A/g
+    %s/Н/I/g
+    %s/У/O/g
+    %s/Ъ/U/g
+    %s/Й/E/g
+endfunction
 
-" github
+command CP1252 call ConvertSpanishDiac1251TO1252() 
 
-Bundle 'tpope/vim-fugitive'
-Bundle 'mileszs/ack.vim'
+" "Shougo/neocomplcache
+ " let g:neocomplcache_enable_at_startup = 0
+ " " Disable AutoComplPop. Comment out this line if AutoComplPop is not installed.
+ " let g:acp_enableAtStartup = 0
+ " " Launches neocomplcache automatically on vim startup.
+ " let g:neocomplcache_enable_at_startup = 1
+ " " Use smartcase.
+ " let g:neocomplcache_enable_smart_case = 1
+ " " Use camel case completion.
+ " let g:neocomplcache_enable_camel_case_completion = 1
+ " " Use underscore completion.
+ " let g:neocomplcache_enable_underbar_completion = 1
+ " " Sets minimum char length of syntax keyword.
+ " let g:neocomplcache_min_syntax_length = 3
+ " " buffer file name pattern that locks neocomplcache. e.g. ku.vim or fuzzyfinder 
+ " let g:neocomplcache_lock_buffer_name_pattern = '\*ku\*'
+ 
+ " " Define file-type dependent dictionaries.
+ " let g:neocomplcache_dictionary_filetype_lists = {
+    " \ 'default' : '',
+        " \ 'vimshell' : $HOME.'/.vimshell_hist',
+            " \ 'scheme' : $HOME.'/.gosh_completions'
+                " \ }
+ 
+ " " Define keyword, for minor languages
+ " if !exists('g:neocomplcache_keyword_patterns')
+     " let g:neocomplcache_keyword_patterns = {}
+  " endif
 
-" vim-scripts
+"set tags =~/.vim/tags/
+nmap <F8> :TagbarToggle<CR> 
 
-Bundle 'L9'
-Bundle 'FuzzyFinder'
-Bundle 'rails.vim'
-Bundle 'The-NERD-Commenter'
-Bundle 'The-NERD-tree'
+function PrognozReady()
+    e D:\prognoz\Tabsheet\ComponentExampleTabSheet\build\PP.TabSheet.js  
+    TagbarToggle
+    TagbarToggle
+    vnew D:\prognoz\temp.js
+    "set ft=javascript
+    "NeoComplCacheEnable
+endfunction
 
+command PZ call PrognozReady() 
+
+function BeautifyJS()
+    w D:\prognoz\temp.js
+    e D:\prognoz\temp.js
+    silent !jsBeautifier.net.exe "sourceFile=D:\prognoz\temp.js" "indent=4" "preserveEmptyLines=true" "detectPackers=true" "keepArrayIndent=false" "bracesInNewLine=false" 
+    e!
+endfunction
+
+command JSB call BeautifyJS() 
+map <F2> :JSB <CR>
+
+" add space to comments
+let g:NERDSpaceDelims = 1
+
+" clean up comments before buttons (Prognoz js chm)
+function BeatifyButtonComments()
+    call NERDComment("x", "uncomment")
+    call NERDComment("x", "sexy")
+    g/^ \* /s/ "/ «/g
+    g/^ \* /s/\(\S\)"/\1»/g
+    g/^ \* /norm f*wlgUh
+endfunction
+
+command BeatifyButtonCommentsCommand call RoRreadyNERDTree() 
+
+nmap <F6> :BeatifyButtonCommentsCommand<CR> 
