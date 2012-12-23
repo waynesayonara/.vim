@@ -1,33 +1,20 @@
 
 " Setting up Vundle - the vim plugin bundler
 let iCanHazVundle=1
-"if has('win32') || has('win64')
-    "let vundle_readme=expand('$VIM/bundle/vundle/README.md')
-    "let bundle_folder=expand('$VIM/bundle')
-    "let vundle_folder=expand('$VIM/bundle/vundle')
-"else
-    let vundle_readme=expand('$HOME/.vim/bundle/vundle/README.md')
-    let bundle_folder=expand('$HOME/.vim/bundle')
-    let vundle_folder=expand('$HOME/.vim/bundle/vundle')
-"endif
 
-if !filereadable(vundle_readme)
+let vundle_readme=expand('$HOME/.vim/bundle/vundle/README.md')
+
+if !filereadable(vundle_readme )
     echo "Installing Vundle.."
     echo ""
-	echo vundle_readme
-    silent !mkdir -p bundle_folder
-    silent !git clone https://github.com/gmarik/vundle vundle_folder
+    silent !mkdir -p $HOME/.vim/bundle
+    silent !git clone https://github.com/gmarik/vundle $HOME/.vim/bundle/vundle
     let iCanHazVundle=0
 endif
 "Vundle-specific
 filetype off " requisite
-"if has('win32') || has('win64')
-    "set rtp+=$VIM/bundle/vundle/
-    "call vundle#rc('$VIM/bundle/')
-"else
-    set rtp+=$HOME/.vim/bundle/vundle/
-    call vundle#rc()
-"endif
+set rtp+=$HOME/.vim/bundle/vundle/
+call vundle#rc()
 filetype plugin indent on " requisite
 Bundle 'gmarik/vundle'
 
