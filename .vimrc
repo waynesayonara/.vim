@@ -74,6 +74,11 @@ set linebreak   "wrap lines at convenient points
 "statusline setup
 set statusline=%f       "tail of the filename
 
+" statusline encoding
+if has("statusline")
+     set statusline+=%<%f\ %h%m%r%=%{\"[\".(&fenc==\"\"?&enc:&fenc).((exists(\"+bomb\")\ &&\ &bomb)?\",B\":\"\").\"]\ \"}%k\ %-14.(%l,%c%V%)\ %P
+ endif
+
 "display a warning if fileformat isnt unix
 set statusline+=%#warningmsg#
 set statusline+=%{&ff!='unix'?'['.&ff.']':''}
@@ -500,10 +505,3 @@ endfunction
 command BeatifyButtonCommentsCommand call RoRreadyNERDTree() 
 
 nmap <F6> :BeatifyButtonCommentsCommand<CR> 
-
-function FixLangMap()
-    set langmap=ёйцукенгшщзхъфывапролджэячсмитьбюЁЙЦУКЕHГШЩЗХЪФЫВАПРОЛДЖЭЯЧСМИТЬБЮ;`qwertyuiop[]asdfghjkl\\;'zxcvbnm\\,.~QWERTYUIOP{}ASDFGHJKL:\\"ZXCVBNM<>
-endfunction
-
-map <F9> :set langmap=ёйцукенгшщзхъфывапролджэячсмитьбюЁЙЦУКЕHГШЩЗХЪФЫВАПРОЛДЖЭЯЧСМИТЬБЮ;`qwertyuiop[]asdfghjkl\\;'zxcvbnm\\,.~QWERTYUIOP{}ASDFGHJKL:\\"ZXCVBNM<>
-autocmd VimEnter * call FixLangMap()
