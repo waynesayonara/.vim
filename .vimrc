@@ -1,6 +1,12 @@
 "This must be first, because it changes other options as a side effect.
 set nocompatible
 set nocp
+set fileencodings=ucs-bom,utf8,prc,cp1252
+set encoding=utf-8
+"set guifont=Courier_New:h12
+"set guifontwide=NSimsun:h12
+set langmenu=en_US
+let $LANG = 'en_US'
 
 source $HOME/.vim/bundleconfig.vim
 
@@ -9,12 +15,12 @@ if has('win32') || has('win64')
     source $VIMRUNTIME/menu.vim
 endif
 
+" xelatex
+let g:Tex_CompileRule_pdf = 'xelatex -interaction=nonstopmode $*'
+"filetype plugin on
 set termencoding=utf-8
 set fileencodings=utf8,cp1251,utf8-bom
 set encoding=utf8
-
-" xelatex
-let g:Tex_CompileRule_pdf = 'xelatex -interaction=nonstopmode $*'
 
 colorscheme waynesayonara
 color waynesayonara
@@ -365,26 +371,26 @@ endfunction
 "XeLaTeX additions 29-nov-2010
 let g:Tex_DefaultTargetFormat='pdf'
 let g:Tex_CompileRule_pdf = 'xelatex -interaction=nonstopmode $*'
-:setlocal spell spelllang=en,ru
+setlocal spell spelllang=en,ru
 set textwidth=150
 " langmap
-set langmap=ёйцукенгшщзхъфывапролджэячсмитьбюЁЙЦУКЕHГШЩЗХЪФЫВАПРОЛДЖЭЯЧСМИТЬБЮ;`qwertyuiop[]asdfghjkl\\;'zxcvbnm\\,.~QWERTYUIOP{}ASDFGHJKL:\\"ZXCVBNM<>
+set langmap=С‘Р№С†СѓРєРµРЅРіС€С‰Р·С…СЉС„С‹РІР°РїСЂРѕР»РґР¶СЌСЏС‡СЃРјРёС‚СЊР±СЋРЃР™Р¦РЈРљР•HР“РЁР©Р—РҐРЄР¤Р«Р’РђРџР РћР›Р”Р–Р­РЇР§РЎРњРРўР¬Р‘Р®;`qwertyuiop[]asdfghjkl\\;'zxcvbnm\\,.~QWERTYUIOP{}ASDFGHJKL:\\"ZXCVBNM<>
 
 set cul "highlight current line
 "
 "
-"set keymap=russian-jcukenwin    " настраиваем переключение раскладок клавиатуры по C-^
-"set iminsert=0                  " раскладка по умолчанию для ввода - английская
-"set imsearch=0                  " раскладка по умолчанию для поиска - английская
+"set keymap=russian-jcukenwin    " РЅР°СЃС‚СЂР°РёРІР°РµРј РїРµСЂРµРєР»СЋС‡РµРЅРёРµ СЂР°СЃРєР»Р°РґРѕРє РєР»Р°РІРёР°С‚СѓСЂС‹ РїРѕ C-^
+"set iminsert=0                  " СЂР°СЃРєР»Р°РґРєР° РїРѕ СѓРјРѕР»С‡Р°РЅРёСЋ РґР»СЏ РІРІРѕРґР° - Р°РЅРіР»РёР№СЃРєР°СЏ
+"set imsearch=0                  " СЂР°СЃРєР»Р°РґРєР° РїРѕ СѓРјРѕР»С‡Р°РЅРёСЋ РґР»СЏ РїРѕРёСЃРєР° - Р°РЅРіР»РёР№СЃРєР°СЏ
 
-"" переключение на русскую/английскую раскладку по ^f (Ctrl + F)
+"" РїРµСЂРµРєР»СЋС‡РµРЅРёРµ РЅР° СЂСѓСЃСЃРєСѓСЋ/Р°РЅРіР»РёР№СЃРєСѓСЋ СЂР°СЃРєР»Р°РґРєСѓ РїРѕ ^f (Ctrl + F)
 "cmap <silent> <S-Left> <C-^>
 "imap <silent> <S-Left> <C-^>X<Esc>:call MyKeyMapHighlight()<CR>a<C-H>
 "nmap <silent> <S-Left> a<C-^><Esc>:call MyKeyMapHighlight()<CR>
 "vmap <silent> <S-Left> <Esc>a<C-^><Esc>:call MyKeyMapHighlight()<CR>gv
 
-"" Переключение раскладок и индикация выбранной в данный момент раскладки -->
-"" При английской раскладке статусная строка текущего окна будет синего цвета, а при русской - красного
+"" РџРµСЂРµРєР»СЋС‡РµРЅРёРµ СЂР°СЃРєР»Р°РґРѕРє Рё РёРЅРґРёРєР°С†РёСЏ РІС‹Р±СЂР°РЅРЅРѕР№ РІ РґР°РЅРЅС‹Р№ РјРѕРјРµРЅС‚ СЂР°СЃРєР»Р°РґРєРё -->
+"" РџСЂРё Р°РЅРіР»РёР№СЃРєРѕР№ СЂР°СЃРєР»Р°РґРєРµ СЃС‚Р°С‚СѓСЃРЅР°СЏ СЃС‚СЂРѕРєР° С‚РµРєСѓС‰РµРіРѕ РѕРєРЅР° Р±СѓРґРµС‚ СЃРёРЅРµРіРѕ С†РІРµС‚Р°, Р° РїСЂРё СЂСѓСЃСЃРєРѕР№ - РєСЂР°СЃРЅРѕРіРѕ
 "function MyKeyMapHighlight()
     "if &iminsert == 0
         "hi StatusLine ctermfg=White guifg=White
@@ -392,9 +398,9 @@ set cul "highlight current line
         "hi StatusLine ctermfg=Yellow guifg=Yellow
     "endif
 "endfunction
-"" Вызываем функцию, чтобы она установила цвета при запуске Vim'a
+"" Р’С‹Р·С‹РІР°РµРј С„СѓРЅРєС†РёСЋ, С‡С‚РѕР±С‹ РѕРЅР° СѓСЃС‚Р°РЅРѕРІРёР»Р° С†РІРµС‚Р° РїСЂРё Р·Р°РїСѓСЃРєРµ Vim'a
 "call MyKeyMapHighlight()
-"" При изменении активного окна будет выполняться обновление индикации текущей раскладки
+"" РџСЂРё РёР·РјРµРЅРµРЅРёРё Р°РєС‚РёРІРЅРѕРіРѕ РѕРєРЅР° Р±СѓРґРµС‚ РІС‹РїРѕР»РЅСЏС‚СЊСЃСЏ РѕР±РЅРѕРІР»РµРЅРёРµ РёРЅРґРёРєР°С†РёРё С‚РµРєСѓС‰РµР№ СЂР°СЃРєР»Р°РґРєРё
 "au WinEnter * :call MyKeyMapHighlight()
 "
 "
@@ -410,18 +416,18 @@ command RN call RoRreadyNERDTree()
 imap ,,, <esc>bdwa<<esc>pa><cr></<esc>pa><esc>kA
 
 function ConvertSpanishDiac1251TO1252()
-    %s/с/n/g
-    %s/б/a/g
-    %s/н/i/g
-    %s/у/o/g
-    %s/ъ/u/g
-    %s/й/e/g
-    %s/С/N/g
-    %s/Б/A/g
-    %s/Н/I/g
-    %s/У/O/g
-    %s/Ъ/U/g
-    %s/Й/E/g
+    %s/СЃ/Г±/g
+    %s/Р±/ГЎ/g
+    %s/РЅ/Г­/g
+    %s/Сѓ/Гі/g
+    %s/СЉ/Гє/g
+    %s/Р№/Г©/g
+    %s/РЎ/Г‘/g
+    %s/Р‘/ГЃ/g
+    %s/Рќ/ГЌ/g
+    %s/РЈ/Г“/g
+    %s/РЄ/Гљ/g
+    %s/Р™/Г‰/g
 endfunction
 
 command CP1252 call ConvertSpanishDiac1251TO1252() 
@@ -486,11 +492,18 @@ let g:NERDSpaceDelims = 1
 function BeatifyButtonComments()
     call NERDComment("x", "uncomment")
     call NERDComment("x", "sexy")
-    g/^ \* /s/ "/ «/g
-    g/^ \* /s/\(\S\)"/\1»/g
+    g/^ \* /s/ "/ В«/g
+    g/^ \* /s/\(\S\)"/\1В»/g
     g/^ \* /norm f*wlgUh
 endfunction
 
 command BeatifyButtonCommentsCommand call RoRreadyNERDTree() 
 
 nmap <F6> :BeatifyButtonCommentsCommand<CR> 
+
+function FixLangMap()
+    set langmap=С‘Р№С†СѓРєРµРЅРіС€С‰Р·С…СЉС„С‹РІР°РїСЂРѕР»РґР¶СЌСЏС‡СЃРјРёС‚СЊР±СЋРЃР™Р¦РЈРљР•HР“РЁР©Р—РҐРЄР¤Р«Р’РђРџР РћР›Р”Р–Р­РЇР§РЎРњРРўР¬Р‘Р®;`qwertyuiop[]asdfghjkl\\;'zxcvbnm\\,.~QWERTYUIOP{}ASDFGHJKL:\\"ZXCVBNM<>
+endfunction
+
+map <F9> :set langmap=С‘Р№С†СѓРєРµРЅРіС€С‰Р·С…СЉС„С‹РІР°РїСЂРѕР»РґР¶СЌСЏС‡СЃРјРёС‚СЊР±СЋРЃР™Р¦РЈРљР•HР“РЁР©Р—РҐРЄР¤Р«Р’РђРџР РћР›Р”Р–Р­РЇР§РЎРњРРўР¬Р‘Р®;`qwertyuiop[]asdfghjkl\\;'zxcvbnm\\,.~QWERTYUIOP{}ASDFGHJKL:\\"ZXCVBNM<>
+autocmd VimEnter * call FixLangMap()
