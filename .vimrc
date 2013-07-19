@@ -505,3 +505,33 @@ endfunction
 command BeatifyButtonCommentsCommand call RoRreadyNERDTree() 
 
 nmap <F6> :BeatifyButtonCommentsCommand<CR> 
+
+function EnumsToFiles()
+    g/PP.Ui.TabSheetAccessRights = function ()/,/PP.initEnum.\{-}"PP.Ui.TabSheetAccessRights"/w TabSheetAccessRights
+    g/PP.Ui.TabSheetBindingMapping = function ()/,/PP.initEnum.\{-}"PP.Ui.TabSheetBindingMapping"/w TabSheetBindingMapping
+    g/PP.Ui.TabSheetCellBorderIndex = function ()/,/PP.initEnum.\{-}"PP.Ui.TabSheetCellBorderIndex"/w TabSheetCellBorderIndex
+    g/PP.Ui.TabSheetCellBorderLineStyle = function ()/,/PP.initEnum.\{-}"PP.Ui.TabSheetCellBorderLineStyle"/w TabSheetCellBorderLineStyle
+    g/PP.Ui.TabSheetCellBorderWeight = function ()/,/PP.initEnum.\{-}"PP.Ui.TabSheetCellBorderWeight"/w TabSheetCellBorderWeight
+    g/PP.Ui.TabSheetCellValueType = function ()/,/PP.initEnum.\{-}"PP.Ui.TabSheetCellValueType"/w TabSheetCellValueType
+    g/PP.Ui.TabSheetCSS = function ()/,/PP.initEnum.\{-}"PP.Ui.TabSheetCSS"/w TabSheetCSS
+    g/PP.Ui.TabSheetCustomBindingMapping = function ()/,/PP.initEnum.\{-}"PP.Ui.TabSheetCustomBindingMapping"/w TabSheetCustomBindingMapping
+    g/PP.Ui.TabSheetEditMode = function ()/,/PP.initEnum.\{-}"PP.Ui.TabSheetEditMode"/w TabSheetEditMode
+    g/PP.Ui.TabSheetFilterRange.Condition = function ()/,/PP.initEnum.\{-}"PP.Ui.TabSheetFilterRange.Condition"/w TabSheetFilterRange.Condition
+    g/PP.Ui.TabSheetFilterRange.Menu = function ()/,/PP.initEnum.\{-}"PP.Ui.TabSheetFilterRange.Menu"/w TabSheetFilterRange.Menu
+    g/PP.Ui.TabSheetHyperlinkAction = function ()/,/PP.initEnum.\{-}"PP.Ui.TabSheetHyperlinkAction"/w TabSheetHyperlinkAction
+    g/PP.Ui.TabSheetMetaChangeType = function ()/,/PP.initEnum.\{-}"PP.Ui.TabSheetMetaChangeType"/w TabSheetMetaChangeType
+    g/PP.Ui.TabSheetModules = function ()/,/PP.initEnum.\{-}"PP.Ui.TabSheetModules"/w TabSheetModules
+    g/PP.Ui.TabSheetSelection.Direction = function ()/,/PP.initEnum.\{-}"PP.Ui.TabSheetSelection.Direction"/w TabSheetSelection.Direction
+    g/PP.Ui.TabSheetSelection.Type = function ()/,/PP.initEnum.\{-}"PP.Ui.TabSheetSelection.Type"/w TabSheetSelection.Type
+endfunction
+
+function UpdateJByteCode()
+    w
+    norm 
+    %d |.!javac Test.java | javap -c -s -verbose Test 
+    norm 
+    w
+    norm 
+    %d |.!javac Test.java | javap -c -s -verbose Test
+    norm 
+endfunction

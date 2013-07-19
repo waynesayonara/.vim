@@ -2,14 +2,13 @@
 " Setting up Vundle - the vim plugin bundler
 let iCanHazVundle=1
 
-let vundle_readme=expand('/bundle/vundle/README.md')
+let vundle_readme=expand('$HOME/.vim/bundle/vundle/README.md')
 
 if !filereadable(vundle_readme )
     echo "Installing Vundle.."
     echo ""
-    silent !mkdir .vim/bundle
-    silent cd .vim/bundle
-    silent !git clone https://github.com/gmarik/vundle 
+    silent !mkdir -p /home/wayne/.vim/bundle
+    silent !git clone https://github.com/gmarik/vundle /home/wayne/.vim/bundle/vundle
     "$H/.vim/bundle/vundle
     let iCanHazVundle=0
 endif
@@ -41,6 +40,7 @@ Bundle 'LaTeX-Suite-aka-Vim-LaTeX'
 Bundle 'snipMate'
 Bundle 'ack.vim'
 Bundle 'Tagbar'
+Bundle 'rails.vim'
 
 
 "
