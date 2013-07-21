@@ -535,3 +535,6 @@ function UpdateJByteCode()
     %d |.!javac Test.java | javap -c -s -verbose Test
     norm 
 endfunction
+
+let g:airline_theme='ubaryd'
+let g:airline_powerline_fonts=1

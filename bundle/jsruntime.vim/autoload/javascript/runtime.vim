@@ -47,20 +47,45 @@ class VimJavascriptConsole(PyV8.JSClass):
             obj = "undefined"
         print '%s%s' % (name,obj)
 
-    def log(self,obj):
-        return self._out(obj)
+    def log(self, obj='', *args):
+        # console.log("%s%s",1,2) should output '12'
+        # console.log("%s") should output '%s' without errors
+        try:
+            output = str(obj) % args
+        except:
+            output = str(obj)
+        return self._out(output,name="LOG: ")
 
-    def debug(self,obj):
-        return self._out(obj,name="DEBUG: ")
+    def debug(self, obj='', *args):
+        try:
+            output = str(obj) % args
+        except:
+            output = str(obj)
+        return self._out(output,name="DEBUG: ")
 
-    def info(self,obj):
-        return self._out(obj,name="INFO: ")
+    def info(self, obj='', *args):
+        try:
+            output = str(obj) % args
+        except:
+            output = str(obj)
+        return self._out(output,name="INFO: ")
 
-    def warn(self,obj):
-        return self._out(obj,name="WARN: ")
+    def warn(self, obj='', *args):
+        try:
+            output = str(obj) % args
+        except:
+            output = str(obj)
+        return self._out(output,name="WARN: ")
 
-    def error(self,obj):
-        return self._out(obj,name="ERROR: ")
+    def error(self, obj='', *args):
+        try:
+            output = str(obj) % args
+        except:
+            output = str(obj)
+        return self._out(output,name="ERROR: ")
+
+    def trace(self, *args):
+        pass
 
 class VimJavascriptRuntime(PyV8.JSClass):
 
@@ -130,7 +155,7 @@ endif
 
 " a flag to other plugin to know does jsruntime support living context
 function! javascript#runtime#isSupportLivingContext()
-	return s:js_interpreter == 'pyv8'
+    return s:js_interpreter == 'pyv8'
 endfunction
 
 " something you need to know as a vim scripter
@@ -154,26 +179,45 @@ if int(vim.eval('renew_context')) and jsRuntimeVim:
     jsRuntimeVim = VimJavascriptRuntime()
 try:
     ret = jsRuntimeVim.evalScript(vim.eval('a:script'))
-	# javascript function not return anything
+    # javascript function not return anything
     if not ret:
         ret = 'undefined'
     else:
         ret = str(ret) #call toString methond
     vim.command('let result=%s' % json.dumps(ret))
 except Exception,e:
-    vim.command('echoerr \'%s\'' % e)
+    #vim.command('echoerr \'%s\'' % e)
+    #with open("jsruntimedebug.txt","w") as fp:
+    #    fp.write(str(e))
+    #    fp.close()
+    vim.command('echoerr \"There\'s a problem while evaluating javascript code\"')
     vim.command('let result=\'\'')
 
 EOF
     else
         let s:cmd = s:js_interpreter . ' "' . s:install_dir . '/jsrunner/runjs.' . s:runjs_ext . '"'
         let result = system(s:cmd, a:script)
+        "call writefile(["returned",result,"script",a:script],'jsruntimedebug.txt')
         if v:shell_error
-           echoerr 'jsruntime is not working properly. plz visit http://www.vim.org/scripts/script.php?script_id=4050 for more info'
+           echoerr "There\'s a problem while evaluating javascript code"
+           "echoerr 'jsruntime is not working properly. plz visit http://www.vim.org/scripts/script.php?script_id=4050 for more info'
         end
     endif
     return result
 endfunction
+
+" clean the context
+function! javascript#runtime#clean()
+    if s:js_interpreter == 'pyv8'
+    python << EOF
+import vim,json
+if jsRuntimeVim:
+    #print 'context cleared'
+    jsRuntimeVim.context.leave()
+    jsRuntimeVim = VimJavascriptRuntime()
+EOF
+	endif
+endfunction	
 
 if s:js_interpreter == 'pyv8'
     function! javascript#runtime#evalScriptInBrowserContext(script)

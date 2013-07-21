@@ -26,6 +26,11 @@ endif
 "" dollar sign is permitted anywhere in an identifier
 setlocal iskeyword+=$
 
+"" Remove dollar sign from identifier when embedded in a PHP file
+if &filetype == 'php'
+  setlocal iskeyword-=$
+endif
+
 syntax sync fromstart
 
 "" syntax coloring for Node.js shebang line
@@ -46,8 +51,8 @@ if !exists("javascript_ignore_javaScriptdoc")
   "unlet b:current_syntax
 
   syntax region javaScriptDocComment    matchgroup=javaScriptComment start="/\*\*\s*$"  end="\*/" contains=javaScriptDocTags,javaScriptCommentTodo,javaScriptCvsTag,@javaScriptHtml,@Spell fold
-  syntax match  javaScriptDocTags       contained "@\(param\|argument\|requires\|exception\|throws\|type\|class\|extends\|see\|link\|member\|module\|method\|title\|namespace\|optional\|default\|base\|file\)\>" nextgroup=javaScriptDocParam,javaScriptDocSeeTag skipwhite
-  syntax match  javaScriptDocTags       contained "@\(beta\|deprecated\|description\|fileoverview\|author\|license\|version\|returns\=\|constructor\|private\|protected\|final\|ignore\|addon\|exec\)\>"
+  syntax match  javaScriptDocTags       contained "@\(param\|argument\|returns\=\|requires\|exception\|throws\|type\|class\|extends\|see\|link\|member\|module\|method\|title\|namespace\|optional\|default\|base\|file\)\>" nextgroup=javaScriptDocParam,javaScriptDocSeeTag skipwhite
+  syntax match  javaScriptDocTags       contained "@\(beta\|deprecated\|description\|fileoverview\|author\|license\|version\|constructor\|private\|protected\|final\|ignore\|addon\|exec\)\>"
   syntax match  javaScriptDocParam      contained "\%(#\|\w\|\.\|:\|\/\)\+"
   syntax region javaScriptDocSeeTag     contained matchgroup=javaScriptDocSeeTag start="{" end="}" contains=javaScriptDocTags
 
@@ -200,8 +205,6 @@ function! JavaScriptFold()
 
 	setl foldtext=FoldText()
 endfunction
-
-au FileType javascript call JavaScriptFold()
 
 " }}}
 

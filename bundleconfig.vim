@@ -51,6 +51,7 @@ Bundle 'scrooloose/nerdcommenter'
 Bundle "michalliu/jsruntime.vim"
 Bundle "michalliu/jsoncodecs.vim"
 Bundle "michalliu/sourcebeautify.vim"
+Bundle "bling/vim-airline"
 
 "after all bundles
 if iCanHazVundle == 0
